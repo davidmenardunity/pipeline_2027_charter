@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unity Pipeline Charter</title>
+<meta name="description" content="Unity Pipeline Program Charter v2.0 — Create games faster.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --ground: #0B0E14;
+    --surface: #131824;
+    --line: #232B3A;
+    --text: #E8EDF5;
+    --muted: #8B96A8;
+    --accent: #59A7FF;
+    --accent-dim: rgba(89, 167, 255, 0.14);
+    --signal: #FFB454;
+    --display: "Archivo", "Segoe UI", system-ui, sans-serif;
+    --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", "Cascadia Code", Consolas, monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-snap-type: y mandatory; }
+  body {
+    background: var(--ground);
+    color: var(--text);
+    font-family: var(--body);
+    font-size: clamp(15px, 1.15vw, 18px);
+    line-height: 1.6;
+  }
+  ::selection { background: var(--accent); color: var(--ground); }
+
+  /* ——— Pipeline rail (nav + motif) ——— */
+  .rail {
+    position: fixed;
+    left: clamp(14px, 3vw, 40px);
+    top: 0; bottom: 0;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    gap: 18px;
+    z-index: 10;
+  }
+  .rail::before {
+    content: "";
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 1px; background: var(--line);
+    transform: translateX(-50%);
+  }
+  .rail a {
+    position: relative;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--ground);
+    border: 1.5px solid var(--muted);
+    transition: background .2s, border-color .2s, transform .2s;
+  }
+  .rail a:hover { border-color: var(--accent); transform: scale(1.3); }
+  .rail a.active { background: var(--accent); border-color: var(--accent); }
+  .rail a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .counter {
+    position: fixed;
+    right: clamp(16px, 3vw, 44px);
+    bottom: clamp(16px, 3vh, 32px);
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    z-index: 10;
+  }
+  .counter b { color: var(--text); font-weight: 500; }
+
+  .hint {
+    position: fixed;
+    left: 50%; bottom: clamp(16px, 3vh, 32px);
+    transform: translateX(-50%);
+    font-family: var(--mono); font-size: 12px;
+    color: var(--muted);
+    z-index: 10;
+    transition: opacity .5s;
+  }
+  .hint.hide { opacity: 0; pointer-events: none; }
+
+  /* ——— Slides ——— */
+  section {
+    min-height: 100svh;
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: clamp(3rem, 8vh, 5rem) clamp(3.2rem, 9vw, 8rem);
+  }
+  .inner { max-width: 62rem; width: 100%; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: clamp(11px, 0.85vw, 13px);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.4rem;
+  }
+  h1, h2 {
+    font-family: var(--display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  h1 { font-size: clamp(2.6rem, 7.5vw, 6rem); }
+  h2 { font-size: clamp(1.8rem, 3.8vw, 3.1rem); margin-bottom: 1.6rem; }
+  .lede {
+    font-size: clamp(1.02rem, 1.5vw, 1.3rem);
+    color: var(--muted);
+    max-width: 42rem;
+  }
+  .lede strong, li strong { color: var(--text); font-weight: 600; }
+
+  /* Title slide */
+  .tagline {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: clamp(1.2rem, 2.4vw, 2rem);
+    color: var(--accent);
+    margin: 1.2rem 0 2rem;
+    letter-spacing: -0.01em;
+  }
+  .tagline .arrow { color: var(--muted); font-weight: 500; }
+
+  /* Bullet list slides */
+  ul.points { list-style: none; display: flex; flex-direction: column; gap: 0.95rem; max-width: 46rem; }
+  ul.points li {
+    padding-left: 1.6rem;
+    position: relative;
+    color: var(--muted);
+  }
+  ul.points li::before {
+    content: "";
+    position: absolute; left: 0; top: 0.62em;
+    width: 0.7rem; height: 1px;
+    background: var(--accent);
+  }
+
+  /* Card grids */
+  .grid {
+    display: grid;
+    gap: 0.9rem;
+    grid-template-columns: repeat(auto-fit, minmax(15.5rem, 1fr));
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 1.1rem 1.25rem;
+  }
+  .card h3 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.35rem;
+  }
+  .card p { font-size: 0.92rem; color: var(--muted); line-height: 1.5; }
+  .card .k {
+    font-family: var(--mono); font-size: 11px;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); display: block; margin-bottom: 0.55rem;
+  }
+
+  /* Pillars: numbered because the charter names exactly five */
+  .pillar { display: flex; gap: 1.1rem; align-items: baseline; }
+  .pillar .n {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--accent);
+    flex: none;
+  }
+
+  /* Roadmap timeline */
+  .timeline { position: relative; margin-top: 2.2rem; }
+  .timeline::before {
+    content: "";
+    position: absolute; left: 0; right: 0; top: 5px;
+    height: 1px; background: var(--line);
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.1rem;
+  }
+  .tl-item { position: relative; padding-top: 1.5rem; }
+  .tl-item::before {
+    content: "";
+    position: absolute; top: 0; left: 0;
+    width: 11px; height: 11px; border-radius: 50%;
+    background: var(--ground);
+    border: 1.5px solid var(--accent);
+  }
+  .tl-item.ga::before { background: var(--signal); border-color: var(--signal); }
+  .tl-item .q {
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); display: block; margin-bottom: 0.3rem;
+  }
+  .tl-item.ga .q { color: var(--signal); }
+  .tl-item h3 {
+    font-family: var(--display); font-weight: 700;
+    font-size: 1rem; margin-bottom: 0.4rem; letter-spacing: -0.01em;
+  }
+  .tl-item p { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+
+  /* Closing slide */
+  .close-big {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 6vw, 4.6rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+  .close-big em { font-style: normal; color: var(--accent); }
+
+  @media (max-width: 900px) {
+    .tl-row { grid-template-columns: 1fr; gap: 1.6rem; }
+    .timeline::before { top: 0; bottom: 0; left: 5px; right: auto; width: 1px; height: auto; }
+    .tl-item { padding: 0 0 0 1.6rem; }
+    .tl-item::before { top: 0.35rem; }
+  }
+  @media (max-width: 720px) {
+    .rail { display: none; }
+    section { padding-left: 1.6rem; padding-right: 1.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rail a, .hint { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="rail" aria-label="Slides"></nav>
+<div class="counter"><b id="cur">01</b> / <span id="total">10</span></div>
+<div class="hint" id="hint">↑ ↓ arrow keys or scroll</div>
+
+<!-- 1 · Title -->
+<section id="s1" aria-label="Title">
+  <div class="inner">
+    <p class="eyebrow">Program Charter · v2.0</p>
+    <h1>Unity Pipeline</h1>
+    <p class="tagline"><span class="arrow">→</span> Create games faster <span class="arrow">←</span></p>
+    <p class="lede">Opening Unity production beyond a single seat of the Editor — for every person, tool, and agent on the team.</p>
+  </div>
+</section>
+
+<!-- 2 · Problem -->
+<section id="s2" aria-label="The problem">
+  <div class="inner">
+    <p class="eyebrow">The Problem</p>
+    <h2>One Editor seat for every interaction</h2>
+    <p class="lede" style="margin-bottom:1.8rem">Setting up a Unity production where producers, artists, designers, external partners — even automated systems and AI agents — can work concurrently and safely is tough. The Editor was never designed as everyone's entry point.</p>
+    <ul class="points">
+      <li>Many team members <strong>don't have the expertise</strong> to get valuable results out of the Editor.</li>
+      <li>Onboarding an internal or external collaborator is <strong>daunting</strong>.</li>
+      <li>Teams have <strong>limited ability to automate or extend tooling</strong> that scales reliably in production.</li>
+      <li>Result: pipeline managers <strong>restrict Editor licenses</strong>, and the value/cost perception of a Unity seat suffers.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 3 · What is it -->
+<section id="s3" aria-label="What is Unity Pipeline">
+  <div class="inner">
+    <p class="eyebrow">What Is It</p>
+    <h2>APIs and tools that open a production beyond the Editor</h2>
+    <ul class="points">
+      <li>Lets studios build an <strong>entire production pipeline, A to Z</strong>, for everyone on the team.</li>
+      <li><strong>Decouples interactions from the Unity Editor</strong> — web, desktop, mobile, or automated.</li>
+      <li>Defines a <strong>contract for interactions</strong> between people, software, agents, and data.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 4 · Pillars -->
+<section id="s4" aria-label="Five pillars">
+  <div class="inner">
+    <p class="eyebrow">Five Pillars</p>
+    <h2>Iteration time from minutes to seconds</h2>
+    <div class="grid" style="grid-template-columns: 1fr; gap: 1.05rem; max-width: 48rem;">
+      <div class="pillar"><span class="n">1</span><p><strong>Agentic workflows</strong> — <span style="color:var(--muted)">doubling down on the CLI to integrate AI agents directly into game production.</span></p></div>
+      <div class="pillar"><span class="n">2</span><p><strong>Bridge Editor &amp; runtime</strong> — <span style="color:var(--muted)">direct-to-runtime workflows, live code iteration, and UGC support.</span></p></div>
+      <div class="pillar"><span class="n">3</span><p><strong>Enhanced collaboration</strong> — <span style="color:var(--muted)">"Play Scene" in the browser and Figma-like real-time collaboration.</span></p></div>
+      <div class="pillar"><span class="n">4</span><p><strong>Open ecosystem</strong> — <span style="color:var(--muted)">Pipeline APIs for 1P, 2P, and 3P apps; production becomes navigable and app-independent.</span></p></div>
+      <div class="pillar"><span class="n">5</span><p><strong>API-first</strong> — <span style="color:var(--muted)">a robust foundation for custom tools, authentication, and role-based access control.</span></p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · What's in the box -->
+<section id="s5" aria-label="What's in the box">
+  <div class="inner">
+    <p class="eyebrow">What's In The Box</p>
+    <h2>A set of APIs, with features built on top</h2>
+    <div class="grid">
+      <div class="card"><h3>Project Assets</h3><p>Browse and navigate project assets in the web dashboard.</p></div>
+      <div class="card"><h3>CLI &amp; pipeline package</h3><p>com.unity.pipeline — the command-line entry point for people and agents.</p></div>
+      <div class="card"><h3>Project API</h3><p>Workbench API for your VCS, plus the Project Service — asset artifacts generated in seconds.</p></div>
+      <div class="card"><h3>Unity Version Control</h3><p>Versioning for the whole production.</p></div>
+      <div class="card"><h3>Build &amp; Pipeline Automation</h3><p>Automated builds, with the Build Accelerator cache to speed them up.</p></div>
+      <div class="card"><h3>Collaboration</h3><p>Annotations in and outside the Editor, via service and package.</p></div>
+      <div class="card"><h3>Deep linking</h3><p>Context-aware links, with authentication packages.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · Pipeline apps -->
+<section id="s6" aria-label="Pipeline apps">
+  <div class="inner">
+    <p class="eyebrow">The Ecosystem</p>
+    <h2>Pipeline apps &amp; context-aware links</h2>
+    <p class="lede" style="margin-bottom:1.8rem">A <strong>Pipeline app</strong> is any tool that implements Pipeline APIs — web, desktop, mobile, editor-integrated, or automated. A <strong>Pipeline link</strong> is an app-independent URL that lets teams move between apps without losing context.</p>
+    <div class="grid">
+      <div class="card"><span class="k">1P</span><h3>First-party</h3><p>Built and distributed by Unity. User seat entitlement, subscription + consumption billing.</p></div>
+      <div class="card"><span class="k">2P</span><h3>Second-party</h3><p>Built by a customer for their own needs, on our APIs.</p></div>
+      <div class="card"><span class="k">3P</span><h3>Third-party</h3><p>Built by a customer and monetized outside their organization.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · North star -->
+<section id="s7" aria-label="North star">
+  <div class="inner">
+    <p class="eyebrow">North Star</p>
+    <h2>The whole team, their tools, and their agents — on the same project</h2>
+    <ul class="points">
+      <li>Iteration time in <strong>seconds, not minutes</strong>.</li>
+      <li><strong>All users</strong> in a studio collaborate around a project.</li>
+      <li>Multiple <strong>agents iterate</strong> on projects, with a human in the loop.</li>
+      <li><strong>No setup time</strong> required.</li>
+      <li><strong>API-first</strong>, enabling custom apps.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 8 · Workflows -->
+<section id="s8" aria-label="Example workflows">
+  <div class="inner">
+    <p class="eyebrow">What It Unlocks</p>
+    <h2>Example workflows</h2>
+    <div class="grid">
+      <div class="card"><h3>Creative asset iteration</h3><p>Artists modify assets and verify them immediately in-game, on target devices.</p></div>
+      <div class="card"><h3>QA &amp; live validation</h3><p>Testers receive live updates on device to verify fixes and integration.</p></div>
+      <div class="card"><h3>Agentic automation</h3><p>Developers delegate tasks to AI agents — from rare device bugs to parallel work across branches.</p></div>
+      <div class="card"><h3>Real-time co-editing</h3><p>Team members and agents work on the same branch, seeing each other's changes live.</p></div>
+      <div class="card"><h3>Playtest &amp; stakeholder review</h3><p>Playable links for remote testing, with in-context feedback.</p></div>
+      <div class="card"><h3>Build &amp; release management</h3><p>Content updates as independent artifacts — rollbacks and drops without rebuilding the player.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · Roadmap -->
+<section id="s9" aria-label="Roadmap">
+  <div class="inner">
+    <p class="eyebrow">Roadmap</p>
+    <h2>From beta to an open content platform</h2>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-item">
+          <span class="q">Q3 '26 · Sept</span>
+          <h3>Checkpoint</h3>
+          <p>Public sign-up, private beta. Workbench API, web dashboard, CLI, asset artifacts in seconds.</p>
+        </div>
+        <div class="tl-item ga">
+          <span class="q">Q4 '26 · Unite Tokyo</span>
+          <h3>General Availability</h3>
+          <p>Managed sales. Active billing, CLI release, packages released, Perforce support.</p>
+        </div>
+        <div class="tl-item">
+          <span class="q">Q1 '27 · GDC</span>
+          <h3>Public self-serve</h3>
+          <p>Available to everyone, including Personal edition. Play Scene in the browser.</p>
+        </div>
+        <div class="tl-item">
+          <span class="q">Q2–3 '27</span>
+          <h3>Enterprise-ready</h3>
+          <p>Self-hosted deployment, privacy and security for protected IP, Live Authoring API.</p>
+        </div>
+        <div class="tl-item">
+          <span class="q">Q4 '27</span>
+          <h3>User-generated content</h3>
+          <p>Content bundles for UGC, Studio integration, third-party commercialization.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 · Impact / close -->
+<section id="s10" aria-label="Impact">
+  <div class="inner">
+    <p class="eyebrow">Impact</p>
+    <p class="close-big">Less handoff friction. Faster onboarding. Lower operational cost.<br><em>Create games faster.</em></p>
+    <p class="lede" style="margin-top:2rem">Unity Pipeline shifts productions away from the single-Editor-seat bottleneck — every role reviews and contributes in context, on web, desktop, or mobile.</p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var sections = Array.prototype.slice.call(document.querySelectorAll("section"));
+    var rail = document.querySelector(".rail");
+    var cur = document.getElementById("cur");
+    var hint = document.getElementById("hint");
+    document.getElementById("total").textContent = String(sections.length).padStart(2, "0");
+
+    var dots = sections.map(function (s, i) {
+      var a = document.createElement("a");
+      a.href = "#" + s.id;
+      a.setAttribute("aria-label", "Slide " + (i + 1));
+      rail.appendChild(a);
+      return a;
+    });
+
+    var active = 0;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          active = sections.indexOf(e.target);
+          dots.forEach(function (d, i) { d.classList.toggle("active", i === active); });
+          cur.textContent = String(active + 1).padStart(2, "0");
+          if (active > 0) hint.classList.add("hide");
+        }
+      });
+    }, { threshold: 0.55 });
+    sections.forEach(function (s) { io.observe(s); });
+
+    var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function go(i) {
+      i = Math.max(0, Math.min(sections.length - 1, i));
+      sections[i].scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); go(active + 1); }
+      if (e.key === "ArrowUp" || e.key === "PageUp") { e.preventDefault(); go(active - 1); }
+      if (e.key === "Home") { e.preventDefault(); go(0); }
+      if (e.key === "End") { e.preventDefault(); go(sections.length - 1); }
+    });
+  })();
+</script>
+
+</body>
+</html>
