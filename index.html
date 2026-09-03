@@ -310,6 +310,21 @@
     background: var(--ground); border: 1px solid var(--line);
     border-radius: 4px; padding: 0.08em 0.35em;
   }
+  details.dd .dd-body .uc { margin-bottom: 0.7rem; }
+  details.dd .dd-body .uc-label {
+    display: block;
+    font-family: var(--mono); font-weight: 600;
+    font-size: 0.75em; letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.1rem;
+  }
+  .tl-item.ga details.dd .dd-body .uc-label { color: var(--signal); }
+  details.dd .dd-body .meta {
+    margin-top: 0.75rem; padding-top: 0.55rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.8em; line-height: 1.5;
+  }
   .tl-item details.dd { margin-top: 0.7rem; max-width: none; border-radius: 9px; }
   .tl-item details.dd summary { padding: 0.5rem 0.8rem; font-size: 11px; }
   .tl-item details.dd .dd-body { padding: 0.1rem 0.9rem 0.8rem; font-size: 0.8rem; }
@@ -595,7 +610,13 @@
           <details class="dd">
             <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
             <div class="dd-body">
-              <p>Scene Preview workflow, asset thumbnails and previews, annotations, asset search. Multi-repo support and project-level RBAC under the hood. Free during beta, with simulated pricing shown. Supported for production with API versioning; compatible with 6.0 LTS, 6.3 LTS, 6.6.</p>
+              <p class="uc"><span class="uc-label">Use case</span><strong>Scene Preview</strong>, aka <em>Beautiful Corner</em>. A producer reviews an outsourced submission in the web dashboard and attaches feedback; the collaborator logs in with scoped access, uploads a fix, and verifies it on device.</p>
+              <ul>
+                <li><strong>Web dashboard</strong>: Scene Preview workflow, 2D asset thumbnails, asset preview in a generic viewer, annotations, asset search, What's New.</li>
+                <li><strong>Pipeline API and CLI</strong>: Workbench API without conflict resolution, asset metadata, asset artifact retrieval, Unity CLI in beta, Editor collaboration package.</li>
+                <li><strong>Under the hood</strong>: Project Service generates asset artifacts in seconds, with multi-repo support and project-level RBAC.</li>
+              </ul>
+              <p class="meta">Public sign-up, private beta · Free, with simulated pricing shown · Production-supported, API versioned · 6.0 LTS, 6.3 LTS, 6.6</p>
             </div>
           </details>
         </div>
@@ -606,7 +627,13 @@
           <details class="dd">
             <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
             <div class="dd-body">
-              <p>Per-org spend limits, Workbench API merge, Accelerator v2 beta. Included in the Editor subscription with credits; Creator seat available, pay-as-you-go and credit top-up bundles. Unite Tokyo keynote, breakout, showfloor demo, customer case studies. Compatible with 6.0 LTS, 6.3 LTS, 6.7 LTS.</p>
+              <p class="uc"><span class="uc-label">Use case</span><strong>Continuous Validation</strong>. Checkpoints across the asset lifecycle let each persona verify quality in their own tool: an artist checks polycount from Blender before upload, then the asset in-game with Scene Review; QA receives live content updates in a development build.</p>
+              <ul>
+                <li><strong>Commercial release</strong>: active billing with per-org spend limits, and the Unity CLI out of beta.</li>
+                <li><strong>Unity Editor and dashboard</strong>: deep linking, collaboration and pipeline packages released; Perforce support in the web dashboard.</li>
+                <li><strong>Pipeline API</strong>: Workbench API merge, Accelerator v2 in beta, Project Service degrades gracefully on unsupported platforms.</li>
+              </ul>
+              <p class="meta">Managed sales only · Included in the Editor subscription with credits, plus Creator seat, PAYG and top-up bundles · 6.0 LTS, 6.3 LTS, 6.7 LTS</p>
             </div>
           </details>
         </div>
@@ -617,18 +644,30 @@
           <details class="dd">
             <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
             <div class="dd-body">
-              <p>Scene artifact generation, Accelerator v2, additional platform support in the Project Service. Hero use case: an artist selects a scene in the web dashboard and clicks Play to see their asset updates in the project; QA plays individual scenes or the entire game in the browser.</p>
+              <p class="uc"><span class="uc-label">Use case</span><strong>Play Scene</strong> (ideation). An artist selects a scene in the web dashboard and clicks Play to start playing right there, seeing their asset updates in the project. QA plays individual scenes or the entire game in the browser. Example demo: a scene diff tool.</p>
+              <ul>
+                <li><strong>Web dashboard</strong>: Play Scene in the browser.</li>
+                <li><strong>Pipeline API</strong>: scene artifact generation, Accelerator v2 out of beta.</li>
+                <li><strong>Project Service</strong>: additional platform support.</li>
+              </ul>
+              <p class="meta">Public, self-serve, including Personal edition · Pricing as at GA · Scope beyond the above is TBD</p>
             </div>
           </details>
         </div>
         <div class="tl-item">
           <span class="q">Q2 to Q3 2027</span>
           <h3>Enterprise-ready</h3>
-          <p>Self-hosted deployment, privacy and security for protected IP, Live Authoring API.</p>
+          <p>Self-hosted deployment, privacy and security for protected IP, Live Authoring API and Editor Authoring SDK in beta.</p>
           <details class="dd">
             <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
             <div class="dd-body">
-              <p>Moby integration. License-based model for self-deployment (to be defined). Hero use case: live multi-user authoring, where people sharing a workbench see each other's modifications and cameras in real time in the Editor, with second and third parties able to build on the same service.</p>
+              <p class="uc"><span class="uc-label">Use case</span><strong>Live multi-user authoring</strong> (ideation), the <em>Figma</em> of Unity. People sharing a workbench see each other's modifications, cursors and cameras in real time in the Editor; second and third parties can build the same into their own apps.</p>
+              <ul>
+                <li><strong>Self-hosted deployment</strong>, so studios with protected IP keep control of their data.</li>
+                <li><strong>Live Authoring API</strong> and <strong>Editor Authoring SDK</strong>, both in beta.</li>
+                <li><strong>Moby integration</strong> for the shared asset library.</li>
+              </ul>
+              <p class="meta">Public self-serve plus self-hosted deployment · License-based model for self-deployment, TBD · Scope beyond the above is TBD</p>
             </div>
           </details>
         </div>
@@ -639,7 +678,13 @@
           <details class="dd">
             <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
             <div class="dd-body">
-              <p>Content bundle generation for user-generated content, a runtime interpreter, and integration with Unity Studio. The pipeline becomes available for producing UGC, opening modding-style community contributions without the Editor.</p>
+              <p class="uc"><span class="uc-label">Use case</span><strong>User Generated Content</strong> (ideation). The pipeline itself becomes the tool players use to make content, opening modding-style community contributions with no Editor seat, the way a VRChat player base contributes today.</p>
+              <ul>
+                <li><strong>UGC production</strong>: content bundle generation for UGC and a runtime interpreter.</li>
+                <li><strong>Live Authoring API</strong> out of beta, with Unity Studio integration.</li>
+                <li><strong>Third-party commercialization</strong> of Pipeline apps.</li>
+              </ul>
+              <p class="meta">Pricing needs special handling for the Live Authoring API, a greater cannibalization risk, and for third-party monetization · Scope beyond the above is TBD</p>
             </div>
           </details>
         </div>
