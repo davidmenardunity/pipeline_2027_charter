@@ -572,9 +572,10 @@
       <p class="diagram-caption">interactions defined by a contract, on web, desktop, mobile, or fully automated</p>
     </div>
     <details class="dd">
-      <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Under the hood: the Project Service</summary>
+      <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>The Project Service</summary>
       <div class="dd-body">
-        <p>The Project Service is a backend implementation, <strong>not a customer-facing component</strong>. When a new asset is added to a workbench, it creates an on-demand Content File for that asset on the target platform, in seconds.</p>
+        <p>Accessed through the <strong>Project API</strong>, the Project Service is a process that creates artifacts, like Content Files, for an asset on a target platform, so it can be loaded in a Unity runtime. On demand, in seconds.</p>
+        <p style="margin-top:0.7rem">It is a process, so it can run <strong>locally or as a service in the cloud</strong>, behind the Project API. When a new asset is added to a workbench, the Project Service creates an on-demand Content File for it on the target platform.</p>
       </div>
     </details>
   </div>
