@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Unity Pipeline Charter</title>
-<meta name="description" content="Unity Pipeline Program Charter v2.0 - Create games faster.">
+<meta name="description" content="Unity Pipeline 2027 Charter v2.1 - Create games faster.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -226,14 +226,97 @@
     margin-top: 0.2rem;
   }
 
+  /* Workflow cards: title only, expandable */
+  details.wf {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    align-self: start;
+  }
+  details.wf summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 0.7rem;
+    padding: 1rem 1.2rem;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--ink);
+    user-select: none;
+  }
+  details.wf summary::-webkit-details-marker { display: none; }
+  details.wf summary:hover { background: var(--accent-soft); }
+  details.wf summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  details.wf summary .chev {
+    flex: none; margin-left: auto;
+    width: 15px; height: 15px;
+    color: var(--accent);
+    transition: transform .2s;
+  }
+  details.wf[open] summary .chev { transform: rotate(90deg); }
+  details.wf .wf-body {
+    padding: 0 1.2rem 1.1rem;
+    font-size: 0.9rem; color: var(--muted); line-height: 1.5;
+  }
+
+  /* Highlight callout */
+  .highlight {
+    background: var(--accent-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 1.1rem 1.4rem;
+    margin-bottom: 1.5rem;
+    max-width: 54rem;
+  }
+  .highlight .hl-lead {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .highlight .hl-body {
+    margin-top: 0.55rem;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+  .highlight .hl-body strong { color: var(--ink); font-weight: 600; }
+
   /* Roadmap timeline */
-  .timeline { position: relative; margin-top: 2.4rem; }
+  .spine {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+    margin-top: 1.3rem;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.45vw, 1.28rem);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .spine p { position: relative; }
+  .spine em { font-style: normal; color: var(--accent); }
+  .spine p:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -1.02rem; top: 0;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .timeline { position: relative; margin-top: 1.9rem; }
   .timeline::before {
     content: "";
     position: absolute; left: 0; right: 0; top: 5px;
     height: 2px; background: var(--line); border-radius: 2px;
   }
-  .tl-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.1rem; }
+  .tl-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.4rem; }
   .tl-item { position: relative; padding-top: 1.5rem; }
   .tl-item::before {
     content: "";
@@ -259,7 +342,17 @@
     border-radius: 6px;
     padding: 0.05em 0.4em;
   }
+  .tl-item h3 { font-size: 1.12rem; }
   .tl-item p { font-size: 0.84rem; color: var(--muted); line-height: 1.5; }
+  .tl-item .moment { color: var(--ink); font-size: 0.86rem; line-height: 1.55; }
+  .tl-item .stage {
+    margin-top: 0.6rem;
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.04em;
+    color: var(--muted);
+  }
+  .tl-item .stage b { color: var(--accent); font-weight: 600; }
+  .tl-item.ga .stage b { color: var(--signal); }
 
   /* Deep-dive collapsibles */
   details.dd {
@@ -328,7 +421,7 @@
   .tl-item details.dd { margin-top: 0.7rem; max-width: none; border-radius: 9px; }
   .tl-item details.dd summary { padding: 0.5rem 0.8rem; font-size: 11px; }
   .tl-item details.dd .dd-body { padding: 0.1rem 0.9rem 0.8rem; font-size: 0.8rem; }
-  @media (prefers-reduced-motion: reduce) { details.dd summary .chev { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { details.dd summary .chev, details.wf summary .chev { transition: none; } }
 
   /* Closing */
   .close-big {
@@ -343,6 +436,8 @@
 
   @media (max-width: 1100px) { .title-art { display: none; } }
   @media (max-width: 900px) {
+    .spine { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; }
+    .spine p:not(:last-child)::after { position: static; margin-left: 0.55rem; }
     .tl-row { grid-template-columns: 1fr; gap: 1.5rem; }
     .timeline::before { top: 0; bottom: 0; left: 5px; right: auto; width: 2px; height: auto; }
     .tl-item { padding: 0 0 0 1.7rem; }
@@ -380,7 +475,7 @@
     <circle cx="380" cy="200" r="10" fill="#2C6BE8"/>
   </svg>
   <div class="inner">
-    <p class="eyebrow">Program Charter v2.0</p>
+    <p class="eyebrow">2027 Charter v2.1</p>
     <h1>Unity<br>Pipeline</h1>
     <p><span class="tagline">Create games faster</span></p>
     <p class="lede">Opening Unity production beyond a single seat of the Editor, for every person, tool, and agent on the team.</p>
@@ -438,7 +533,7 @@
     <details class="dd">
       <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Why this hurts the business</summary>
       <div class="dd-body">
-        <p>In a macro-environment with constrained funding, this creates a negative perception about the value and cost of a Unity license. Many team members can't get valuable results out of the Editor, onboarding an internal or external collaborator takes daunting effort, and teams have limited ability to automate or extend tooling that scales reliably in production. The result: pipeline managers conservatively restrict the number of Editor licenses assigned across the team.</p>
+        <p>In a macro-environment with constrained funding, this creates a negative perception about the value and cost of a Unity license. Many team members can't get valuable results out of the Editor, onboarding an internal or external collaborator takes daunting effort, teams have limited ability to automate or extend tooling that scales reliably in production, and AI agents cannot work concurrently alongside humans or each other. The result: pipeline managers conservatively restrict the number of Editor licenses assigned across the team, or seek alternatives to Unity that are friendlier to agentic workflows.</p>
       </div>
     </details>
   </div>
@@ -497,15 +592,15 @@
       </div>
       <div class="card">
         <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 4 20 12 6 20 6 4"/></svg></span>
-        <h3>Bridge Editor and runtime</h3><p>Direct-to-runtime workflows, live code iteration, and support for user-generated content.</p>
+        <h3>Remove the Editor</h3><p>Author Unity projects from anywhere: direct-to-runtime workflows, live code iteration, and support for user-generated content.</p>
       </div>
       <div class="card">
         <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><circle cx="17.5" cy="9" r="2.5"/><path d="M16 14.5c3 0 5.5 2 5.5 5"/></svg></span>
-        <h3>Enhanced collaboration</h3><p>Play Scene in the browser and Figma-like real-time collaboration.</p>
+        <h3>Enhanced collaboration</h3><p>Play Scene in the browser, and Figma-like real-time collaboration.</p>
       </div>
       <div class="card">
         <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></span>
-        <h3>Open ecosystem</h3><p>Pipeline APIs for first, second, and third-party apps. Production becomes navigable and app-independent.</p>
+        <h3>Pipeline ecosystem</h3><p>First, second and third-party apps serving different user profiles. Production becomes navigable and app-independent.</p>
       </div>
       <div class="card">
         <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4c-2 0-2.5 1.5-2.5 3v2c0 1.5-.7 2.5-2.5 3 1.8.5 2.5 1.5 2.5 3v2c0 1.5.5 3 2.5 3"/><path d="M16 4c2 0 2.5 1.5 2.5 3v2c0 1.5.7 2.5 2.5 3-1.8.5-2.5 1.5-2.5 3v2c0 1.5-.5 3-2.5 3"/></svg></span>
@@ -527,7 +622,8 @@
       <div class="card"><h3>Unity Version Control</h3><p>Versioning for the whole production.</p></div>
       <div class="card"><h3>Build and Pipeline Automation</h3><p>Automated builds, accelerated by the Build Accelerator cache.</p></div>
       <div class="card"><h3>Collaboration</h3><p>Annotations in and outside the Editor, via service and package.</p></div>
-      <div class="card"><h3>Deep linking</h3><p>Context-aware links, with authentication packages.</p></div>
+      <div class="card"><h3>Deep linking</h3><p>Context-aware links, with identity packages.</p></div>
+      <div class="card"><h3>Unity Hub</h3><p>Project and install management, templates, and CoCreate.</p></div>
     </div>
     <details class="dd">
       <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Packages and services</summary>
@@ -536,7 +632,7 @@
           <li><strong>CLI and pipeline package</strong>: <code>com.unity.pipeline</code></li>
           <li><strong>Project API</strong>: Workbench API to interface with your version control system, and the Project Service producing artifacts for all assets in a workbench</li>
           <li><strong>Collaboration</strong>: service plus <code>com.unity.cloud.collaboration</code> for annotations in and outside the Editor</li>
-          <li><strong>Deep linking</strong>: service plus <code>com.unity.cloud.deep-linking</code> and <code>com.unity.cloud.authentication</code></li>
+          <li><strong>Deep linking</strong>: service plus <code>com.unity.cloud.deep-linking</code> and <code>com.unity.cloud.identity</code></li>
           <li><strong>Build Accelerator</strong>: a cache that speeds up build times</li>
         </ul>
       </div>
@@ -551,10 +647,20 @@
     <h2>Pipeline apps and context-aware links</h2>
     <p class="lede" style="margin-bottom:1.6rem">A <strong>Pipeline app</strong> is any tool that implements Pipeline APIs: web, desktop, mobile, editor-integrated, or automated. A <strong>Pipeline link</strong> is an app-independent URL that lets teams move between apps without losing context.</p>
     <div class="grid">
-      <div class="card"><span class="k">1P</span><h3>First-party</h3><p>Built and distributed by Unity. User seat entitlement, subscription plus consumption billing.</p></div>
+      <div class="card"><span class="k">1P</span><h3>First-party</h3><p>Built and distributed by Unity, by other teams on these same APIs: Studio, CoCreate, Spark, the Hub. User seat entitlement, subscription plus consumption billing.</p></div>
       <div class="card"><span class="k">2P</span><h3>Second-party</h3><p>Built by a customer for their own needs, on our APIs.</p></div>
       <div class="card"><span class="k">3P</span><h3>Third-party</h3><p>Built by a customer and monetized outside their organization.</p></div>
     </div>
+    <details class="dd">
+      <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>The API layer serves two profiles</summary>
+      <div class="dd-body">
+        <ul>
+          <li><strong>Enterprise professionals</strong>: experienced studios already running productions in the traditional Unity ecosystem.</li>
+          <li><strong>New, top-of-funnel creators</strong>: people building Unity projects whose entry point is a simpler authoring app &mdash; Spark, CoCreate, Studio &mdash; rather than the Editor. Today <strong>800k people a month download the Hub and never install the Editor</strong>; a first-party Pipeline app is how they get in.</li>
+        </ul>
+        <p>Both profiles reach the same project through the same contract, which is why first-party apps built by other Unity teams and customer-built apps are not separate ecosystems.</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -575,24 +681,48 @@
   <div class="inner">
     <p class="eyebrow">What It Unlocks</p>
     <h2>Example workflows</h2>
-    <div class="grid">
-      <div class="card"><h3>Creative asset iteration</h3><p>Artists modify assets and verify them immediately in-game, on target devices.</p></div>
-      <div class="card"><h3>QA and live validation</h3><p>Testers receive live updates on device to verify fixes and integration.</p></div>
-      <div class="card"><h3>Agentic automation</h3><p>Developers delegate tasks to AI agents, from rare device bugs to parallel work across branches.</p></div>
-      <div class="card"><h3>Real-time co-editing</h3><p>Team members and agents work on the same branch, seeing each other's changes live.</p></div>
-      <div class="card"><h3>Playtest and stakeholder review</h3><p>Playable links for remote testing, with in-context feedback.</p></div>
-      <div class="card"><h3>Build and release management</h3><p>Content updates as independent artifacts: rollbacks and drops without rebuilding the player.</p></div>
+    <div class="highlight">
+      <p class="hl-lead">Because the Unity Editor is no longer a bottleneck, creation becomes a fluid handoff between AI, human collaborators, and custom tools.</p>
+      <p class="hl-body">An <strong>agent</strong> reaches the Pipeline API to generate a blocked-out level and initial scripts, with no download or setup time. A <strong>game designer</strong> jumps into a lightweight web tool to review and tweak that level in the browser. A <strong>technical artist</strong> opens the exact same project state in the full Editor to finalize lighting and performance.</p>
     </div>
-    <details class="dd">
-      <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Three more workflows</summary>
-      <div class="dd-body">
-        <ul>
-          <li><strong>Custom pipeline development</strong>: second and third-party developers build specialized tools on Pipeline APIs, such as prefab-diff tools, custom level editors, or game balancing dashboards.</li>
-          <li><strong>Cross-platform performance analysis</strong>: technical artists run scenes across multiple target devices simultaneously and compare metrics against previous revisions.</li>
-          <li><strong>Governance and access control</strong>: producers manage project health, monitor branch status, and invite contractors with scoped access, without an Editor seat.</li>
-        </ul>
-      </div>
-    </details>
+    <div class="grid">
+      <details class="wf">
+        <summary>Creative asset iteration<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Artists, audio designers and narrative designers modify assets in their own tools, and verify the change immediately in-game on target devices.</p></div>
+      </details>
+      <details class="wf">
+        <summary>QA and live validation<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>QA and automated systems test builds on devices, receiving live updates from developers to verify bug fixes and integration.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Agentic automation<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Developers delegate complex tasks to AI agents, such as investigating rare device bugs, or executing parallel tasks across branches without conflicts.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Real-time co-editing<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Multiple team members and agents &mdash; an environment artist and a designer, say &mdash; work simultaneously on the same project branch, seeing each other's changes in real time.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Playtest and stakeholder review<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Game designers and producers distribute playable links for remote testing, letting stakeholders review work and leave feedback in context.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Build and release management<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Release engineers deploy content updates as independent artifacts, enabling rollbacks and content drops without rebuilding or redistributing the player binary.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Custom apps<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Second and third-party developers build specialized, domain-specific &ldquo;Editors&rdquo; or web tools on Pipeline APIs: prefab-diff tools, custom level editors, game balancing dashboards.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Cross-platform performance<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>A technical artist runs the same scene across several target devices at once and compares performance against a previous revision.</p></div>
+      </details>
+      <details class="wf">
+        <summary>Governance and access control<svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></summary>
+        <div class="wf-body"><p>Producers manage project health, monitor branch status, and invite contractors with scoped access, all without needing an Editor seat.</p></div>
+      </details>
+    </div>
   </div>
 </section>
 
@@ -600,94 +730,94 @@
 <section id="s9" aria-label="Roadmap">
   <div class="inner">
     <p class="eyebrow">Roadmap</p>
-    <h2>From beta to an open content platform</h2>
+    <h2>Four milestones, one escalating use case</h2>
+    <div class="spine">
+      <p><em>See</em> your change</p>
+      <p><em>Play</em> your change</p>
+      <p><em>Author</em> together</p>
+      <p>Let your <em>players</em> author</p>
+    </div>
     <div class="timeline">
       <div class="tl-row">
+
         <div class="tl-item">
-          <span class="q">Q3 2026, Sept</span>
-          <h3>Checkpoint</h3>
-          <p>Public sign-up, private beta. Workbench API, web dashboard, CLI, asset artifacts in seconds.</p>
+          <span class="q">Q4 '26, Oct 31 &middot; Unite Tokyo</span>
+          <h3>Continuous Validation</h3>
+          <p class="moment">An artist checks the same asset at every checkpoint of its lifecycle &mdash; in Blender, in the browser viewer, in a custom Scene Preview, in-game via Content Files, and in the studio's own tools &mdash; without opening the Editor once.</p>
+          <p class="stage"><b>Limited Availability</b><br>prove it in production</p>
           <details class="dd">
-            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
+            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>What ships</summary>
             <div class="dd-body">
-              <p class="uc"><span class="uc-label">Use case</span><strong>Scene Preview</strong>, aka <em>Beautiful Corner</em>. A producer reviews an outsourced submission in the web dashboard and attaches feedback; the collaborator logs in with scoped access, uploads a fix, and verifies it on device.</p>
               <ul>
-                <li><strong>Web dashboard</strong>: Scene Preview workflow, 2D asset thumbnails, asset preview in a generic viewer, annotations, asset search, What's New.</li>
-                <li><strong>Pipeline API and CLI</strong>: Workbench API without conflict resolution, asset metadata, asset artifact retrieval, Unity CLI in beta, Editor collaboration package.</li>
-                <li><strong>Under the hood</strong>: Project Service generates asset artifacts in seconds, with multi-repo support and project-level RBAC.</li>
+                <li><strong>Commercial</strong>: active billing with per-org spend limits.</li>
+                <li><strong>CLI release</strong>: Moby CLI commands, plus Claude, Codex and Kimi plugins.</li>
+                <li><strong>Unity Editor</strong>: deep linking, collaboration and pipeline packages released.</li>
+                <li><strong>Web dashboard</strong>: Perforce integration.</li>
+                <li><strong>Pipeline API</strong>: Workbench API merge; Accelerator v2 in beta.</li>
+                <li><strong>Under the hood</strong>: Project Service degrades gracefully on unsupported platforms.</li>
               </ul>
-              <p class="meta">Public sign-up, private beta · Free, with simulated pricing shown · Production-supported, API versioned · 6.0 LTS, 6.3 LTS, 6.6</p>
+              <p class="meta">Expanded beta, managed sales only &middot; Included in the Editor subscription with credits; Creator seat PAYG and top-up bundles &middot; Supported for production on 6.0, 6.3 and 6.7 LTS &middot; Unite Tokyo keynote, roadmap, breakout, showfloor demo</p>
             </div>
           </details>
         </div>
+
         <div class="tl-item ga">
-          <span class="q">Q4 2026, Unite Tokyo</span>
-          <h3>General Availability</h3>
-          <p>Managed sales. Active billing, CLI release, packages released, Perforce support.</p>
+          <span class="q">Q1 '27, Mar 1 &middot; GDC</span>
+          <h3>Play Scene</h3>
+          <p class="moment">An artist selects a scene in the web dashboard and clicks Play. It runs right there, in the browser, with their own asset updates in it.</p>
+          <p class="stage"><b>General Availability</b><br>open it to everyone</p>
           <details class="dd">
-            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
+            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>What ships</summary>
             <div class="dd-body">
-              <p class="uc"><span class="uc-label">Use case</span><strong>Continuous Validation</strong>. Checkpoints across the asset lifecycle let each persona verify quality in their own tool: an artist checks polycount from Blender before upload, then the asset in-game with Scene Review; QA receives live content updates in a development build.</p>
-              <ul>
-                <li><strong>Commercial release</strong>: active billing with per-org spend limits, and the Unity CLI out of beta.</li>
-                <li><strong>Unity Editor and dashboard</strong>: deep linking, collaboration and pipeline packages released; Perforce support in the web dashboard.</li>
-                <li><strong>Pipeline API</strong>: Workbench API merge, Accelerator v2 in beta, Project Service degrades gracefully on unsupported platforms.</li>
-              </ul>
-              <p class="meta">Managed sales only · Included in the Editor subscription with credits, plus Creator seat, PAYG and top-up bundles · 6.0 LTS, 6.3 LTS, 6.7 LTS</p>
-            </div>
-          </details>
-        </div>
-        <div class="tl-item">
-          <span class="q">Q1 2027, GDC</span>
-          <h3>Public self-serve</h3>
-          <p>Available to everyone, including Personal edition. Play Scene in the browser.</p>
-          <details class="dd">
-            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
-            <div class="dd-body">
-              <p class="uc"><span class="uc-label">Use case</span><strong>Play Scene</strong> (ideation). An artist selects a scene in the web dashboard and clicks Play to start playing right there, seeing their asset updates in the project. QA plays individual scenes or the entire game in the browser. Example demo: a scene diff tool.</p>
               <ul>
                 <li><strong>Web dashboard</strong>: Play Scene in the browser.</li>
-                <li><strong>Pipeline API</strong>: scene artifact generation, Accelerator v2 out of beta.</li>
-                <li><strong>Project Service</strong>: additional platform support.</li>
+                <li><strong>Pipeline API</strong>: scene artifact generation; Accelerator v2.</li>
+                <li><strong>Project Service</strong>: additional platform support, and a local Project Service.</li>
+                <li><strong>Runtime code iteration</strong> for development builds.</li>
+                <li><strong>Tentative</strong>: CoCreate and Moby integrations.</li>
               </ul>
-              <p class="meta">Public, self-serve, including Personal edition · Pricing as at GA · Scope beyond the above is TBD</p>
+              <p class="meta">Public and self-serve, available to everyone including Personal edition &middot; Pricing as at Limited Availability &middot; GDC: self-serve, case studies, how-to socials &middot; Scope beyond the above is TBD</p>
             </div>
           </details>
         </div>
+
         <div class="tl-item">
-          <span class="q">Q2 to Q3 2027</span>
-          <h3>Enterprise-ready</h3>
-          <p>Self-hosted deployment, privacy and security for protected IP, Live Authoring API and Editor Authoring SDK in beta.</p>
+          <span class="q">Q2&ndash;Q3 '27, Jun 1</span>
+          <h3>Live multi-user authoring</h3>
+          <p class="moment">The Figma of Unity. People sharing a workbench see each other's modifications, cursors and cameras in real time in the Editor &mdash; and second parties build the same into their own apps.</p>
+          <p class="stage"><b>Enterprise-ready</b><br>trust it with protected IP</p>
           <details class="dd">
-            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
+            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>What ships</summary>
             <div class="dd-body">
-              <p class="uc"><span class="uc-label">Use case</span><strong>Live multi-user authoring</strong> (ideation), the <em>Figma</em> of Unity. People sharing a workbench see each other's modifications, cursors and cameras in real time in the Editor; second and third parties can build the same into their own apps.</p>
               <ul>
                 <li><strong>Self-hosted deployment</strong>, so studios with protected IP keep control of their data.</li>
-                <li><strong>Live Authoring API</strong> and <strong>Editor Authoring SDK</strong>, both in beta.</li>
-                <li><strong>Moby integration</strong> for the shared asset library.</li>
+                <li><strong>Live Authoring API</strong> in beta.</li>
+                <li><strong>Editor Authoring SDK</strong> in beta.</li>
               </ul>
-              <p class="meta">Public self-serve plus self-hosted deployment · License-based model for self-deployment, TBD · Scope beyond the above is TBD</p>
+              <p class="meta">Public self-serve plus self-hosted deployment &middot; License-based model for self-deployment, TBD &middot; Sales enablement: a short security brief for IT and legal &middot; Scope beyond the above is TBD</p>
             </div>
           </details>
         </div>
+
         <div class="tl-item">
-          <span class="q">Q4 2027</span>
+          <span class="q">Q4 '27, November</span>
           <h3>User-generated content</h3>
-          <p>Content bundles for UGC, Studio integration, third-party commercialization.</p>
+          <p class="moment">Players submit content that is processed and compiled for distribution to other players inside a live game &mdash; and third parties build Pipeline apps they resell.</p>
+          <p class="stage"><b>Open content platform</b><br>hand it to players</p>
           <details class="dd">
-            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Details</summary>
+            <summary><svg class="chev" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>What ships</summary>
             <div class="dd-body">
-              <p class="uc"><span class="uc-label">Use case</span><strong>User Generated Content</strong> (ideation). The pipeline itself becomes the tool players use to make content, opening modding-style community contributions with no Editor seat, the way a VRChat player base contributes today.</p>
               <ul>
-                <li><strong>UGC production</strong>: content bundle generation for UGC and a runtime interpreter.</li>
-                <li><strong>Live Authoring API</strong> out of beta, with Unity Studio integration.</li>
+                <li><strong>UGC production</strong>: content bundle generation and a runtime interpreter.</li>
+                <li><strong>Runtime code iteration</strong> for UGC.</li>
                 <li><strong>Third-party commercialization</strong> of Pipeline apps.</li>
+                <li><strong>Tentative</strong>: Spark integration.</li>
               </ul>
-              <p class="meta">Pricing needs special handling for the Live Authoring API, a greater cannibalization risk, and for third-party monetization · Scope beyond the above is TBD</p>
+              <p class="meta">Pricing needs special handling for the Live Authoring API, a greater cannibalization risk, and for third-party monetization &middot; Marketing talks to studios, not players: your players can make assets inside your game &middot; Scope beyond the above is TBD</p>
             </div>
           </details>
         </div>
+
       </div>
     </div>
   </div>
